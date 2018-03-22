@@ -1,0 +1,9 @@
+body {
+    background-color: black;
+}
+
+.cirkel {
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 40px;
