@@ -1,0 +1,37 @@
+body {
+    background-color: azure;
+}
+
+.groteVierkant {
+    margin: 0 auto;
+    margin-top: 10%;
+    width: 600px;
+    height: 600px;
+    background-color: #ccc;
+}
+
+.vierkant1,
+.vierkant2,
+.vierkant3 {
+    width: 296;
+    height: 296;
+    background-color: mediumpurple;
+    border: 2px solid #595959;
+}
+
+.vierkant1, .vierkant2{
+    float: left;
+}
+
+.vierkant3{
+    float: left;
+}
+
+.vierkant4{
+    width: 296;
+    height: 296;
+    background-color: deepskyblue;
+    border: 2px solid #595959;
+    float: right;
+    position: relative;
+}
