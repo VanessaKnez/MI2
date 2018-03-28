@@ -2,8 +2,9 @@ body {
     background-color: black;
 }
 
-.cirkel {
+.vijand {
     width: 20px;
     height: 20px;
     background: red;
     border-radius: 40px;
+    position: absolute;
