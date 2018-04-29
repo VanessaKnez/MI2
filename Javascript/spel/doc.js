@@ -1,35 +1,48 @@
 "use strict";
-/*global $ */
-
-var vijand = document.getElementById("vijand");
-var currentPos = 5;
-var currentPos2 = 5;
-var dx = 5;
-var dy = 5;
-var breedteBal = window.innerWidth * 0.015;
-var hoogteBal = window.innerHeight * 0.03;
-var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-function BeweegVijand() {
-    currentPos += dx;
-    currentPos2 += dy;
-    vijand.style.left = currentPos + dx + 'px';
-    vijand.style.bottom = currentPos2 + dy + 'px';
-    
-    if (currentPos >= window.innerWidth - breedteBal) {
-        dx = -dx;
+/* jshint esnext: true */
+// met een lus ervoor zorgen dat de rode bolletjes 10 keer getoond worden
+$(document).ready(function () {
+        var i = 0;
+        for (i; i < 10; i++) {
+            Teken();
+        }
+    })
+    // hier gaan we de rode bolletjes tekenen
+var Teken = () => {
+        var offsetleft = GetRandom(window.innerWidth);
+        var offsettop = GetRandom(window.innerHeight);
+        document.body.innerHTML += "<div class='vijand' style='left: " + offsetleft + "px; top: " + offsettop + "px'></div>";
     }
-    if (currentPos2 >= window.innerHeight - breedteBal) {
-        dy = -dy;
+    //  hier zetten we een random positie
+var GetRandom = (max) => {
+        return Math.floor(Math.random() * max) - 25;
     }
-    if (currentPos <= 0) {
-        dx = -dx;
+    // de speler laten bewegen met de pijltjes toetsen
+$(document).keydown(function (e) {
+    switch (e.which) {
+    case 37:
+        //links
+        $(".speler").finish().animate({
+            left: "-=10"
+        });
+        break;
+    case 38:
+        //boven
+        $(".speler").finish().animate({
+            top: "-=10"
+        });
+        break;
+    case 39:
+        //rechts
+        $(".speler").finish().animate({
+            left: "+=10"
+        });
+        break;
+    case 40:
+        //beneden
+        $(".speler").finish().animate({
+            top: "+=10"
+        });
+        break;
     }
-    if (currentPos2 <= 0) {
-        dy = -dy;
-    }
-    
-    requestAnimationFrame(BeweegVijand);
-}
-
-BeweegVijand();
+});

@@ -8,3 +8,18 @@ body {
     background: red;
     border-radius: 40px;
     position: absolute;
+}
+
+.speler {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 40px;
+    position: absolute;
+}
+
+#score {
+    color: limegreen;
+    float: right;
+    font-size: 18px;
+}
