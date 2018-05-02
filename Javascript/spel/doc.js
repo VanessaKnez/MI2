@@ -1,7 +1,8 @@
 "use strict";
 var windowheight,
     windowwidth,
-    speler;
+    speler,
+    score = 0;
 /* jshint esnext: true */
 // met een lus ervoor zorgen dat de rode bolletjes 10 keer getoond worden
 $(document).ready(function () {
@@ -12,12 +13,12 @@ $(document).ready(function () {
     windowheight = window.innerHeight;
     windowwidth = window.innerWidth;
     speler = $(".speler");
-})
+});
 // hier gaan we de rode bolletjes tekenen
 var Teken = () => {
     var offsetleft = GetRandom(window.innerWidth);
     var offsettop = GetRandom(window.innerHeight);
-    document.body.innerHTML += "<div class='vijand' style='left: " + offsetleft + "px; top: " + offsettop + "px'></div>";
+    document.body.innerHTML += "<div class='vijand' id='vijand' style='left: " + offsetleft + "px; top: " + offsettop + "px'></div>";
 }
 //  hier zetten we een random positie
 var GetRandom = (max) => {
@@ -89,6 +90,5 @@ function DetecteerCollisie(richting) {
 }
 
 // score maken voor de speler
-function Score(){
-    var score = 0;
+function MijnScore(){
 }

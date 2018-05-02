@@ -23,3 +23,14 @@ body {
     float: right;
     font-size: 18px;
 }
+
+@media screen and (max-width: 600px) {
+    .vijand {
+        width: 15px;
+        height: 15px;
+    }
+    .speler {
+        width: 15px;
+        height: 15px;
+    }
+}
