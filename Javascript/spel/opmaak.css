@@ -27,7 +27,8 @@ body {
 #welkombox {
 	font-family: Arial, verdana, sans-serif;
 	width: 20vw;
-	height: 20vh;
+	height: 30vh;
+    padding: 1%;
 	margin-left: calc(45vw - 50px);
 	text-align: center;
 	font-size: 20px;
@@ -66,9 +67,9 @@ body {
 	position: absolute;
 	border-radius: 4px;
 	z-index: 1;
-	-webkit-animation: beweegAnimation 5s;
+	-webkit-animation: beweegAnimation 3s;
 	-webkit-animation-fill-mode: forwards;
-	animation: beweegAnimation 5s;
+	animation: beweegAnimation 3s;
 	animation-fill-mode: forwards;
 }
 
@@ -90,7 +91,7 @@ body {
 		top: 0px;
 	}
 	to {
-		top: 40vh;
+		top: 30vh;
 	}
 }
 
@@ -99,7 +100,7 @@ body {
 		top: 0px;
 	}
 	to {
-		top: 40vh;
+		top: 30vh;
 	}
 }
 
