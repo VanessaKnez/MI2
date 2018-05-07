@@ -1,35 +1,42 @@
 "use strict";
-var windowheight
-    , windowwidth
-    , speler
-    , score = 0
-    , random
-    , vijandLeft
-    , vijandTop
-    , vijandRight
-    , vijandBottom
-    , spelerTop
-    , spelerLeft
-    , spelerRight
-    , spelerBottom
-    , speler
-    , vijandHoogte
-    , vijandBreedte;
+var windowheight, windowwidth, speler, score = 0
+    , random, vijandLeft, vijandTop, vijandRight, vijandBottom, spelerTop, spelerLeft, spelerRight, spelerBottom, speler, vijandHoogte, vijandBreedte, subject, moeilijkheidsGraad = 0
+    , aantalBollen = 0
+    , pauze = false
+    , request, kleuren = ["red", "orange", "yellow", "green", "blue", "purple", "beige", "cyan", "rose", "violet"];
 /* jshint esnext: true */
 $(document).ready(function () {
     // welkom box met knop functie
-    // voorlopig enkel de box laten verdwijnen
-    $("#StartSpel").click(function () {
-        // met een lus ervoor zorgen dat de rode bolletjes 10 keer getoond worden
-        var i = 0;
-        for (i; i < 15; i++) {
-            Teken(i);
-        }
-        windowheight = window.innerHeight;
-        windowwidth = window.innerWidth;
-        speler = $(".speler");
-        $("#welkombox").hide();
-        BeweegBallen();
+    // --- EPILEPSIE? ---
+    $("#StartEasy").click(function () {
+        moeilijkheidsGraad = 50;
+        aantalBollen = 15;
+        TekenVijand(aantalBollen);
+        setInterval(VeranderVijandVanKleur, 60000);
+        setInterval(function(){
+            score += 5;
+            MijnScore();
+        }, 1000);
+    });
+    $("#StartNormaal").click(function () {
+        moeilijkheidsGraad = 100;
+        aantalBollen = 25;
+        TekenVijand(aantalBollen);
+        setInterval(VeranderVijandVanKleur, 60000);
+        setInterval(function(){
+            score += 5;
+            MijnScore();
+        }, 1000);
+    });
+    $("#StartHard").click(function () {
+        moeilijkheidsGraad = 200;
+        aantalBollen = 40;
+        TekenVijand(aantalBollen);
+        setInterval(VeranderVijandVanKleur, 60000);
+        setInterval(function(){
+            score += 5;
+            MijnScore();
+        }, 1000);
     });
     // verloren box met knop functie
     // voorlopig enkel de box laten verdwijnen
@@ -38,6 +45,27 @@ $(document).ready(function () {
     });
     $("#verlorenbox").hide();
 });
+
+function TekenVijand(getal) {
+    // met een lus ervoor zorgen dat de rode bolletjes "aantalBollen" keer getoond worden
+    var i = 0;
+    for (i; i < getal; i++) {
+        Teken(i);
+    }
+    windowheight = window.innerHeight;
+    windowwidth = window.innerWidth;
+    speler = $(".speler");
+    $("#welkombox").hide();
+    BeweegBallen();
+}
+
+function VeranderVijandVanKleur() {
+    random = Math.floor(Math.random() * 10);
+    $(".vijand").each(function () {
+        
+        this.style.background = kleuren[random];
+    })
+}
 // hier gaan we de rode bolletjes tekenen
 var Teken = (index) => {
         var offsetleft = GetRandom(window.innerWidth);
@@ -48,9 +76,24 @@ var Teken = (index) => {
     }
     //  hier zetten we een random positie
 var GetRandom = (max) => {
-        return Math.floor(Math.random() * max) - 25;
+    return Math.floor(Math.random() * max) - 25;
+}
+
+function pauzeer() {
+    alert("oi");
+    console.log("OI");
+    if (!pauze) {
+        console.log("pauze");
+        pauze = true;
+        cancelAnimationFrame(request);
     }
-    // de speler laten bewegen met de pijltjes toetsen
+    else {
+        console.log("unpauze");
+        pauze = false;
+        request = requestAnimationFrame(BeweegBallen);
+    }
+}
+// de speler laten bewegen met de pijltjes toetsen
 $(document).keydown(function (e) {
     DetecteerCollisieMetVijand();
     switch (e.which) {
@@ -109,8 +152,41 @@ function DetecteerCollisie(richting) {
         break;
     }
 }
+
+function DetecteerCollisieVanVijand(richting, obj) {
+    subject = $("#" + obj);
+    // console.log(obj + ": " + parseInt(subject.css("top")));
+    switch (richting) {
+    case "boven":
+        if ((parseInt(subject.css("top")) - 17) < 0) {
+            return true;
+        }
+        else return false;
+        break;
+    case "links":
+        if ((parseInt(subject.css("left")) - 17) < 0) {
+            return true;
+        }
+        else return false;
+        break;
+    case "rechts":
+        if ((parseInt(subject.css("left")) + 32.5) > windowwidth) {
+            return true;
+        }
+        else return false;
+        break;
+    case "beneden":
+        if ((parseInt(subject.css("top")) + 38) > windowheight) {
+            return true;
+        }
+        else return false;
+        break;
+    }
+}
 // score maken voor de speler
-function MijnScore() {}
+function MijnScore() {
+    $("#score").html = "Score: " + score;
+}
 
 function DetecteerCollisieMetVijand() {
     speler = $("#speler")
@@ -160,24 +236,33 @@ function BeweegBallen() {
         }
         switch (random) {
         case 0:
-            console.log("case 0");
-            Beweeg(this.id, 0);
+            // console.log(this.id);
+            if (!DetecteerCollisieVanVijand("links", this.id)) {
+                //console.log("case 0");
+                Beweeg(this.id, 0);
+            }
             break;
         case 1:
-            console.log("case 1");
-            Beweeg(this.id, 1);
+            if (!DetecteerCollisieVanVijand("boven")) {
+                //console.log("case 1");
+                Beweeg(this.id, 1);
+            }
             break;
         case 2:
-            console.log("case 2");
-            Beweeg(this.id, 2);
+            if (!DetecteerCollisieVanVijand("rechts")) {
+                // console.log("case 2");
+                Beweeg(this.id, 2);
+            }
             break;
         case 3:
-            console.log("case 3");
-            Beweeg(this.id, 3);
+            if (!DetecteerCollisieVanVijand("beneden")) {
+                //console.log("case 3");
+                Beweeg(this.id, 3);
+            }
             break;
         }
     });
-    requestAnimationFrame(BeweegBallen);
+    request = requestAnimationFrame(BeweegBallen);
 }
 
 function Beweeg(obj, richting) {
@@ -186,28 +271,34 @@ function Beweeg(obj, richting) {
         //links
         //if (!DetecteerCollisie("links")) {
         $("#" + obj).animate({
-            left: "-=100"
+            left: "-=" + moeilijkheidsGraad
         });
         break;
     case 1:
         //boven
         $("#" + obj).animate({
-            top: "-=100"
-        }, "fast", function () {
-            console.log(obj + " the new value is: " + $("#" + obj).left);
+            top: "-=" + moeilijkheidsGraad
         });
         break;
     case 2:
         //rechts
         $("#" + obj).animate({
-            left: "+=100"
+            left: "+=" + moeilijkheidsGraad
         });
         break;
     case 3:
         //beneden
         $("#" + obj).animate({
-            top: "+=100"
+            top: "+=" + moeilijkheidsGraad
         });
         break;
     }
 }
+$("#speler").on("touchmove", function (e) {
+    var raakAan = e.originalEvent.touches[0];
+    var positieX = touch.clientX;
+    var positieY = touch.clientY;
+    $(this).css({
+        "-webkit-transform": "translate3d(" + positieX + "px," + positieY + "px,0)"
+    })
+});

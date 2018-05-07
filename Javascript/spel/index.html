@@ -1,34 +1,31 @@
 <html>
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="opmaak.css" rel="stylesheet" type="text/css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="doc.js">
-
-
-	</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="opmaak.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="doc.js">
+    </script>
 </head>
 
 <body>
-
-	<!-- <div class="vijand"></div> -->
-	<div class="speler" id="speler"></div>
-	<div id="score">score: </div>
-	<div id="welkombox">
-		<p>WELKOM</p>
+    <!-- <div class="vijand"></div> -->
+    <div class="speler" id="speler"></div>
+    <div id="score">score: </div>
+    <!-- <button id="PauzeKnop" type="button" onclick="pauzeer()">Pause</button> -->
+    <div id="welkombox">
+        <p id="welkom">WELCOME</p>
         <p>You are the white dot. Try not to touch the red dots.</p>
-		<!-- EPILEPSIE? -->
-		<button id="StartSpel" type="button">Start game!</button>
-	</div>
-
-	<div id="verlorenbox">
-		<p>You have lost</p>
-		SCORE ZETTEN
-		<button id="SpeelOpnieuw" type="button">Play again!</button>
-	</div>
-
-
+        <!-- EPILEPSIE? -->
+        <button id="StartEasy" type="button">Easy</button>
+        <button id="StartNormaal" type="button">Normal</button>
+        <button id="StartHard" type="button">Hard</button>
+    </div>
+    <div id="verlorenbox">
+        <p>You have lost</p>
+        <!-- SCORE ZETTEN -->
+        <button id="SpeelOpnieuw" type="button">Play again!</button>
+    </div>
 </body>
 
 </html>
