@@ -1,4 +1,6 @@
 "use strict";
+// het aanmaken van de variabelen
+// de meeste variabelen probeer ik hier te zetten zo zijn ze allemaal samen en heb ik een goed overzicht
 var windowheight, windowwidth, speler, score = 0
     , random, vijandLeft, vijandTop, vijandRight, vijandBottom, spelerTop, spelerLeft, spelerRight, spelerBottom, speler, vijandHoogte, vijandBreedte, subject, moeilijkheidsGraad = 0
     , aantalBollen = 0
@@ -8,46 +10,69 @@ var windowheight, windowwidth, speler, score = 0
 $(document).ready(function () {
     // welkom box met knop functie
     // --- EPILEPSIE? ---
+    $("#GoRechts").click(function () {
+        alert("test");
+        if (!DetecteerCollisie("rechts")) {
+            alert("test");
+            $(".speler").finish().animate({
+                left: "+=10"
+            })
+        }
+    });
+    /**
+     * Als er op de easy knop gedrukt wordt,
+     * Dan is de moeilijkheidsgraad lager, op 50
+     * En het aantal bollen dat getekend word zijn 15
+     */
     $("#StartEasy").click(function () {
         moeilijkheidsGraad = 50;
         aantalBollen = 15;
         TekenVijand(aantalBollen);
         setInterval(VeranderVijandVanKleur, 60000);
-        setInterval(function(){
+        setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
     });
+    /**
+     * Als er op de normaal knop gedrukt wordt,
+     * Dan is de moeilijkheidsgraad normaal, op 100
+     * En het aantal bollen dat getekend word zijn 25
+     */
     $("#StartNormaal").click(function () {
         moeilijkheidsGraad = 100;
         aantalBollen = 25;
         TekenVijand(aantalBollen);
         setInterval(VeranderVijandVanKleur, 60000);
-        setInterval(function(){
+        setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
     });
+    /**
+     * Als er op de hard knop gedrukt wordt,
+     * Dan is de moeilijkheidsgraad hoger, op 200
+     * En het aantal bollen dat getekend word zijn 40
+     */
     $("#StartHard").click(function () {
         moeilijkheidsGraad = 200;
         aantalBollen = 40;
         TekenVijand(aantalBollen);
         setInterval(VeranderVijandVanKleur, 60000);
-        setInterval(function(){
+        setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
     });
     // verloren box met knop functie
     // voorlopig enkel de box laten verdwijnen
-    $("#SpeelOpnieuw").click(function () {
-        $("#verlorenbox").hide();
-    });
-    $("#verlorenbox").hide();
+    // $("#SpeelOpnieuw").click(function () {
+    //     $("#verlorenbox").hide();
+    // });
+    // $("#verlorenbox").hide();
 });
-
+// met een lus ervoor zorgen dat de rode bolletjes "aantalBollen" keer getoond worden
 function TekenVijand(getal) {
-    // met een lus ervoor zorgen dat de rode bolletjes "aantalBollen" keer getoond worden
     var i = 0;
     for (i; i < getal; i++) {
         Teken(i);
@@ -58,11 +83,10 @@ function TekenVijand(getal) {
     $("#welkombox").hide();
     BeweegBallen();
 }
-
+// de vijanden van kleur laten veranderen, de kleuren die in de array staan
 function VeranderVijandVanKleur() {
     random = Math.floor(Math.random() * 10);
     $(".vijand").each(function () {
-        
         this.style.background = kleuren[random];
     })
 }
@@ -76,9 +100,10 @@ var Teken = (index) => {
     }
     //  hier zetten we een random positie
 var GetRandom = (max) => {
-    return Math.floor(Math.random() * max) - 25;
-}
-
+        return Math.floor(Math.random() * max) - 25;
+    }
+    // de spel laten pauzeren
+    // VOORLOPIG WERKT DIT NOG NIET
 function pauzeer() {
     alert("oi");
     console.log("OI");
@@ -95,6 +120,11 @@ function pauzeer() {
 }
 // de speler laten bewegen met de pijltjes toetsen
 $(document).keydown(function (e) {
+    speler = $("#speler")
+    spelerTop = parseInt(speler.css("top"));
+    spelerBottom = parseInt(speler.css("top")) + parseInt(speler.css("height"));
+    spelerLeft = parseInt(speler.css("left"));
+    spelerRight = parseInt(speler.css("left")) + parseInt(speler.css("width"));
     DetecteerCollisieMetVijand();
     switch (e.which) {
     case 37:
@@ -155,28 +185,28 @@ function DetecteerCollisie(richting) {
 
 function DetecteerCollisieVanVijand(richting, obj) {
     subject = $("#" + obj);
-    // console.log(obj + ": " + parseInt(subject.css("top")));
+    console.log(obj + ": " + parseInt(subject.css("top")));
     switch (richting) {
     case "boven":
-        if ((parseInt(subject.css("top")) - 17) < 0) {
+        if ((parseInt(subject.css("top")) - 100) < 0) {
             return true;
         }
         else return false;
         break;
     case "links":
-        if ((parseInt(subject.css("left")) - 17) < 0) {
+        if ((parseInt(subject.css("left")) - 100) < 0) {
             return true;
         }
         else return false;
         break;
     case "rechts":
-        if ((parseInt(subject.css("left")) + 32.5) > windowwidth) {
+        if ((parseInt(subject.css("left")) + 100) > windowwidth) {
             return true;
         }
         else return false;
         break;
     case "beneden":
-        if ((parseInt(subject.css("top")) + 38) > windowheight) {
+        if ((parseInt(subject.css("top")) + 100) > windowheight) {
             return true;
         }
         else return false;
@@ -187,38 +217,19 @@ function DetecteerCollisieVanVijand(richting, obj) {
 function MijnScore() {
     $("#score").html = "Score: " + score;
 }
-
+// zien of de speler opgegeten is door de vijand
 function DetecteerCollisieMetVijand() {
-    speler = $("#speler")
     $(".vijand").each(function () {
-        vijandHoogte = $(this).height();
-        vijandBreedte = $(this).width();
-        vijandLeft = parseInt(this.style.left);
-        //console.log("leftVijand: " + leftVijand);
-        //console.log("leftSpeler: " + leftSpeler);
-        vijandTop = parseInt(this.style.top);
-        //console.log("topVijand: " + topVijand);
-        //console.log("topSpeler: " + topSpeler);
-        spelerLeft = parseInt(speler.css("left"));
-        spelerRight = parseInt(speler.css("left")) + (speler.width());
-        spelerTop = parseInt(speler.css("top"));
-        spelerBottom = parseInt(speler.css("top")) + (speler.height());
-        vijandLeft = vijandLeft;
-        vijandRight = vijandLeft + (vijandBreedte);
-        vijandTop = vijandTop;
-        vijandBottom = vijandTop + (vijandHoogte);
-        //   if (!((spelerBottom < vijandTop) || (spelerTop > vijandBottom) || (spelerRight < vijandLeft) || (spelerLeft > vijandRight))) {
-        //        console.log(spelerLeft + "," + spelerRight + "," + spelerTop + "," + spelerBottom + "," + vijandLeft + "," + vijandRight + "," + vijandTop + "," + vijandBottom);
-        //      $("#verlorenbox").show();
-        //    speler.css("display", "none");
-        //}
-        //if ((spelerBottom == vijandTop) || (spelerTop == vijandBottom)) {
-        //    $("#verlorenbox").show();
-        //    speler.css("display", "none");
-        //}
+        if (parseInt(this.style.left) < spelerLeft && parseInt(this.style.top) < spelerTop && (parseInt(this.style.left) + parseInt(this.style.width)) > spelerRight && (parseInt(this.style.top) + this.style.height) > spelerBottom) {
+            gameOver();
+        }
     })
 }
-
+// wanneer het spel voorbij is
+function gameOver() {
+    $("#verlorenbox").show();
+}
+// de vijanden random laten bewegen
 function BeweegBallen() {
     $(".vijand").each(function () {
         random = Math.random();
@@ -235,34 +246,34 @@ function BeweegBallen() {
             random = 0;
         }
         switch (random) {
-        case 0:
-            // console.log(this.id);
-            if (!DetecteerCollisieVanVijand("links", this.id)) {
-                //console.log("case 0");
+        case 0: //links
+            //console.log(this.id);
+            if ((parseInt(this.style.left) - 100) > 0) {
+                console.log("the left is: " + parseInt(this.style.left) + " and is larger than 0");
                 Beweeg(this.id, 0);
             }
             break;
-        case 1:
-            if (!DetecteerCollisieVanVijand("boven")) {
-                //console.log("case 1");
+        case 1: //boven
+            if ((parseInt(this.style.top) - 100) > 0) {
+                console.log("the top is: " + parseInt(this.style.top) + " and is larger than 0");
                 Beweeg(this.id, 1);
             }
             break;
-        case 2:
-            if (!DetecteerCollisieVanVijand("rechts")) {
-                // console.log("case 2");
+        case 2: //rechts
+            if ((parseInt(this.style.left) + 100) < window.innerWidth) {
+                console.log("the left is: " + parseInt(this.style.left) + " and is smaller than " + window.innerWidth);
                 Beweeg(this.id, 2);
             }
             break;
-        case 3:
-            if (!DetecteerCollisieVanVijand("beneden")) {
-                //console.log("case 3");
+        case 3: //beneden
+            if ((parseInt(this.style.top) + 100) < window.innerHeight) {
+                console.log("the top is: " + parseInt(this.style.top) + " and is smaller than " + window.innerHeight);
                 Beweeg(this.id, 3);
             }
             break;
         }
     });
-    request = requestAnimationFrame(BeweegBallen);
+    requestAnimationFrame(BeweegBallen);
 }
 
 function Beweeg(obj, richting) {
@@ -271,25 +282,25 @@ function Beweeg(obj, richting) {
         //links
         //if (!DetecteerCollisie("links")) {
         $("#" + obj).animate({
-            left: "-=" + moeilijkheidsGraad
+            left: "-=100"
         });
         break;
     case 1:
         //boven
         $("#" + obj).animate({
-            top: "-=" + moeilijkheidsGraad
+            top: "-=100"
         });
         break;
     case 2:
         //rechts
         $("#" + obj).animate({
-            left: "+=" + moeilijkheidsGraad
+            left: "+=100"
         });
         break;
     case 3:
         //beneden
         $("#" + obj).animate({
-            top: "+=" + moeilijkheidsGraad
+            top: "+=100"
         });
         break;
     }

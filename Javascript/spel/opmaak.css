@@ -3,8 +3,8 @@ body {
 }
 
 .vijand {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background: red;
     border-radius: 40px;
     position: relative;
@@ -74,18 +74,6 @@ body {
     -webkit-animation-fill-mode: forwards;
     animation: beweegAnimation 3s;
     animation-fill-mode: forwards;
-}
-
-#SpeelOpnieuw {
-    background-color: #40bf40;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
 }
 
 @-webkit-keyframes beweegAnimation {
