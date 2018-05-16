@@ -39,7 +39,16 @@ body {
     height: 10vh;
     width: 3vw;
     float: right;
+    margin-right: -14;
     margin-top: calc(51vh - 50px);
+}
+
+#uitgang2 {
+    border: 1px solid white;
+    height: 5vh;
+    width: 1vw;
+    float: right;
+    margin-top: calc(55vh - 50px);
 }
 
 #welkombox {
@@ -115,6 +124,10 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+    body {
+        overflow: hidden;
+        position: static;
+    }
     .vijand {
         width: 15px;
         height: 15px;
@@ -123,9 +136,19 @@ body {
         width: 15px;
         height: 15px;
     }
+    #tijd {
+        width: 30vw;
+        margin-left: calc(45vw - 50px);
+    }
+    #uitgang {
+        height: 10vh;
+        width: 8vw;
+        float: right;
+        margin-top: calc(51vh - 50px);
+    }
     #welkombox {
         width: 85vw;
-        height: 30vh;
+        height: 38vh;
         margin-left: calc(20vw - 50px);
     }
     #verlorenbox {

@@ -205,7 +205,7 @@ function DetecteerCollisie(richting) {
 // als de speler in de uitgang is dan terug opnieuw positioneren
 function DetecteerCollisieUitgang() {
     var uitgang = $("#uitgang")
-    if (parseInt(speler.css("top")) > parseInt(uitgang.css("top")) && parseInt(speler.css("bottom")) < parseInt(uitgang.css("bottom")) && parseInt(speler.css("left")) > parseInt(uitgang.css("left"))) {
+    if (parseInt(speler.css("top")) > parseInt(uitgang.css("margin-top")) && (parseInt(speler.css("top")) + parseInt(speler.css("height"))) < (parseInt(window.innerHeight) - parseInt(uitgang.css("margin-top")) + parseInt(uitgang.css("height"))) && parseInt(speler.css("left")) > parseInt(window.innerWidth) - 40) {
         alert("test");
     }
 }
