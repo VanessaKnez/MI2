@@ -53,6 +53,7 @@ $(document).ready(function () {
             MijnScore();
         }, 1000);
         tijdOver(7);
+        DetecteerCollisieUitgang();
     });
     /**
      * Als er op de hard knop gedrukt wordt,
@@ -113,7 +114,6 @@ function TekenVijand(getal) {
     windowwidth = window.innerWidth;
     speler = $(".speler");
     $("#welkombox").hide();
-    //BeweegBallen();
 }
 // de vijanden van kleur laten veranderen, de kleuren die in de array staan
 function VeranderVijandVanKleur() {
@@ -132,25 +132,10 @@ var Teken = (index) => {
     }
     //  hier zetten we een random positie
 var GetRandom = (max) => {
-        return Math.floor(Math.random() * max) - 25;
+        // return Math.floor(Math.random() * max) - 25;
+        return Math.floor(Math.random() * max);
     }
-    // de spel laten pauzeren
-    // VOORLOPIG WERKT DIT NOG NIET
-function pauzeer() {
-    alert("oi");
-    console.log("OI");
-    if (!pauze) {
-        console.log("pauze");
-        pauze = true;
-        cancelAnimationFrame(request);
-    }
-    else {
-        console.log("unpauze");
-        pauze = false;
-        request = requestAnimationFrame(BeweegBallen);
-    }
-}
-// de speler laten bewegen met de pijltjes toetsen
+    // de speler laten bewegen met de pijltjes toetsen
 $(document).keydown(function (e) {
     speler = $("#speler")
     spelerTop = parseInt(speler.css("top"));
@@ -169,19 +154,22 @@ $(document).keydown(function (e) {
         //boven
         if (!DetecteerCollisie("boven")) $(".speler").finish().animate({
             top: "-=10"
-        });
+        })
+        DetecteerCollisieUitgang();
         break;
     case 39:
         //rechts
         if (!DetecteerCollisie("rechts")) $(".speler").finish().animate({
             left: "+=10"
-        });
+        })
+        DetecteerCollisieUitgang();
         break;
     case 40:
         //beneden
         if (!DetecteerCollisie("beneden")) $(".speler").finish().animate({
             top: "+=10"
-        });
+        })
+        DetecteerCollisieUitgang();
         break;
     }
 });
@@ -212,6 +200,13 @@ function DetecteerCollisie(richting) {
         }
         else return false;
         break;
+    }
+}
+// als de speler in de uitgang is dan terug opnieuw positioneren
+function DetecteerCollisieUitgang() {
+    var uitgang = $("#uitgang")
+    if (parseInt(speler.css("top")) > parseInt(uitgang.css("top")) && parseInt(speler.css("bottom")) < parseInt(uitgang.css("bottom")) && parseInt(speler.css("left")) > parseInt(uitgang.css("left"))) {
+        alert("test");
     }
 }
 
@@ -260,82 +255,6 @@ function DetecteerCollisieMetVijand() {
 // wanneer het spel voorbij is
 function gameOver() {
     $("#verlorenbox").show();
-}
-// de vijanden random laten bewegen
-function BeweegBallen() {
-    $(".vijand").each(function () {
-        random = Math.random();
-        if (random > 0.75) {
-            random = 3;
-        }
-        else if (random > 0.50) {
-            random = 2;
-        }
-        else if (random > 0.25) {
-            random = 1;
-        }
-        else if (random > 0) {
-            random = 0;
-        }
-        switch (random) {
-        case 0: //links
-            //console.log(this.id);
-            if ((parseInt(this.style.left) - 100) > 0) {
-                console.log("the left is: " + parseInt(this.style.left) + " and is larger than 0");
-                Beweeg(this.id, 0);
-            }
-            break;
-        case 1: //boven
-            if ((parseInt(this.style.top) - 100) > 0) {
-                console.log("the top is: " + parseInt(this.style.top) + " and is larger than 0");
-                Beweeg(this.id, 1);
-            }
-            break;
-        case 2: //rechts
-            if ((parseInt(this.style.left) + 100) < window.innerWidth) {
-                console.log("the left is: " + parseInt(this.style.left) + " and is smaller than " + window.innerWidth);
-                Beweeg(this.id, 2);
-            }
-            break;
-        case 3: //beneden
-            if ((parseInt(this.style.top) + 100) < window.innerHeight) {
-                console.log("the top is: " + parseInt(this.style.top) + " and is smaller than " + window.innerHeight);
-                Beweeg(this.id, 3);
-            }
-            break;
-        }
-    });
-    requestAnimationFrame(BeweegBallen);
-}
-
-function Beweeg(obj, richting) {
-    switch (richting) {
-    case 0:
-        //links
-        //if (!DetecteerCollisie("links")) {
-        $("#" + obj).animate({
-            left: "-=100"
-        });
-        break;
-    case 1:
-        //boven
-        $("#" + obj).animate({
-            top: "-=100"
-        });
-        break;
-    case 2:
-        //rechts
-        $("#" + obj).animate({
-            left: "+=100"
-        });
-        break;
-    case 3:
-        //beneden
-        $("#" + obj).animate({
-            top: "+=100"
-        });
-        break;
-    }
 }
 $("#speler").on("touchmove", function (e) {
     var raakAan = e.originalEvent.touches[0];

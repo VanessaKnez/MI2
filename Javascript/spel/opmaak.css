@@ -35,7 +35,7 @@ body {
 }
 
 #uitgang {
-    border: 1px solid green;
+    border: 3px solid green;
     height: 10vh;
     width: 3vw;
     float: right;
