@@ -5,7 +5,8 @@ var windowheight, windowwidth, speler, score = 0
     , random, vijandLeft, vijandTop, vijandRight, vijandBottom, spelerTop, spelerLeft, spelerRight, spelerBottom, speler, vijandHoogte, vijandBreedte, subject, moeilijkheidsGraad = 0
     , aantalBollen = 0
     , pauze = false
-    , request, kleuren = ["red", "orange", "yellow", "green", "blue", "purple", "beige", "cyan", "rose", "violet"];
+    , request, kleuren = ["red", "orange", "yellow", "green", "blue", "purple", "beige", "cyan", "rose", "violet"]
+    , tijdOver, timer;
 /* jshint esnext: true */
 $(document).ready(function () {
     // welkom box met knop functie
@@ -28,11 +29,13 @@ $(document).ready(function () {
         moeilijkheidsGraad = 50;
         aantalBollen = 15;
         TekenVijand(aantalBollen);
+        setInterval(RandomPositieVijand, 10000);
         setInterval(VeranderVijandVanKleur, 60000);
         setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
+        tijdOver(10);
     });
     /**
      * Als er op de normaal knop gedrukt wordt,
@@ -43,11 +46,13 @@ $(document).ready(function () {
         moeilijkheidsGraad = 100;
         aantalBollen = 25;
         TekenVijand(aantalBollen);
+        setInterval(RandomPositieVijand, 7000);
         setInterval(VeranderVijandVanKleur, 60000);
         setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
+        tijdOver(7);
     });
     /**
      * Als er op de hard knop gedrukt wordt,
@@ -58,11 +63,13 @@ $(document).ready(function () {
         moeilijkheidsGraad = 200;
         aantalBollen = 40;
         TekenVijand(aantalBollen);
+        setInterval(RandomPositieVijand, 3000);
         setInterval(VeranderVijandVanKleur, 60000);
         setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
+        tijdOver(3);
     });
     // verloren box met knop functie
     // voorlopig enkel de box laten verdwijnen
@@ -71,6 +78,31 @@ $(document).ready(function () {
     // });
     // $("#verlorenbox").hide();
 });
+
+function tijdOver(getal) {
+    tijdOver = getal;
+    setInterval(function () {
+        tijdOver--;
+        document.getElementById("tijd").textContent = "00:" + tijdOver + " seconds";
+        if (tijdOver < 0) {
+            tijdOver = getal;
+            document.getElementById("tijd").textContent = "00:" + tijdOver + " seconds";
+        }
+    }, 1000);
+}
+
+function RandomPositieVijand() {
+    var offsetleft;
+    var offsettop;
+    for (var i = 0; i < aantalBollen; i++) {
+        offsetleft = GetRandom(window.innerWidth);
+        offsettop = GetRandom(window.innerHeight);
+        $("#vijand" + i).css({
+            left: offsetleft
+            , top: offsettop
+        })
+    }
+}
 // met een lus ervoor zorgen dat de rode bolletjes "aantalBollen" keer getoond worden
 function TekenVijand(getal) {
     var i = 0;
@@ -81,7 +113,7 @@ function TekenVijand(getal) {
     windowwidth = window.innerWidth;
     speler = $(".speler");
     $("#welkombox").hide();
-    BeweegBallen();
+    //BeweegBallen();
 }
 // de vijanden van kleur laten veranderen, de kleuren die in de array staan
 function VeranderVijandVanKleur() {
