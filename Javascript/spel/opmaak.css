@@ -72,21 +72,25 @@ body {
 
 #GaNaarBoven {
     margin-top: calc(34vh - 50px);
+    overflow: hidden;
 }
 
 #GaNaarLinks {
     margin-top: calc(38vh - 50px);
+    overflow: hidden;
 }
 
 #GaNaarBeneden {
     float: right;
     margin-top: calc(0vh - 50px);
+    overflow: hidden;
 }
 
 #GaNaarRechts {
     float: right;
     margin-top: calc(30vh - 50px);
     margin-right: -24px;
+    overflow: hidden;
 }
 
 #welkombox {
@@ -170,8 +174,8 @@ body {
         position: static;
     }
     .vijand {
-        width: 15px;
-        height: 15px;
+        width: 40px;
+        height: 40px;
     }
     .speler {
         width: 15px;
@@ -187,11 +191,7 @@ body {
         float: right;
         margin-top: calc(51vh - 50px);
     }
-    #welkombox {
-        width: 85vw;
-        height: 38vh;
-        margin-left: calc(20vw - 50px);
-    }
+    
     #verlorenbox {
         width: 85vw;
         height: 25vh;
@@ -205,7 +205,7 @@ body {
             width: 30vw;
             height: 3vh;
             margin-top: calc(130vw - 50px);
-            margin-left: calc(-4vh - 50px);
+            margin-left: calc(-13vh - 50px);
         }
         #uitgang {
             height: 10vh;
@@ -224,22 +224,27 @@ body {
         #GaNaarBoven {
             margin-top: calc(8vh - 50px);
             margin-left: calc(-100vw - 50px);
+            overflow: visible;
         }
         #GaNaarLinks {
             margin-left: calc(-100vw - 50px);
             margin-top: calc (20vh - 50px);
+            overflow: visible;
         }
         #GaNaarBeneden {
             margin-top: calc(0vh - 50px);
+            margin-left: calc(-20vw - 50px);
+            overflow: visible;
         }
         #GaNaarRechts {
             margin-top: calc(30vh - 50px);
             margin-right: 0px;
+            overflow: visible;
         }
         #welkombox {
             width: 80vw;
             height: 30vh;
-            margin-left: calc(-30vw - 50px);
+            margin-left: calc(-50vw - 50px);
         }
         #verlorenbox {
             width: 80vw;
@@ -274,8 +279,8 @@ body {
         position: static;
     }
     .vijand {
-        width: 15px;
-        height: 15px;
+        width: 40px;
+        height: 40px;
     }
     .speler {
         width: 15px;
@@ -324,9 +329,15 @@ body {
             top: 14vh;
         }
     }
+    #GaNaarBoven,
+    #GaNaarLinks,
+    #GaNaarBeneden {
+        overflow: visible;
+    }
     #GaNaarRechts {
         float: right;
         margin-top: calc(4vh - 50px);
         margin-right: -6px;
+        overflow: visible;
     }
 }

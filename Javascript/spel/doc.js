@@ -6,7 +6,7 @@ var windowheight, windowwidth, speler, score = 0
     , aantalBollen = 0
     , pauze = false
     , request, kleuren = ["red", "orange", "yellow", "green", "blue", "purple", "beige", "cyan", "rose", "violet"]
-    , tijdOver, timer;
+    , tijdOver, timer, verlorenGeluid;
 /* jshint esnext: true */
 $(document).ready(function () {
     $("#GaNaarRechts").click(function () {
@@ -114,18 +114,7 @@ $(document).ready(function () {
     // $("#verlorenbox").hide();
     speler = $(".speler");
 });
-/*
-var hammertime = new Hammer(document.getElementById("speler"), tap);
-hammertime.on('pan', function (ev) {
-    console.log(ev);
-});
-hammertime.get('pan').set({
-    direction: Hammer.DIRECTION_ALL
-});
-hammertime.get('swipe').set({
-    direction: Hammer.DIRECTION_VERTICAL
-});
-*/
+// de teller van het spel
 function tijdOver(getal) {
     tijdOver = getal;
     setInterval(function () {
@@ -137,7 +126,7 @@ function tijdOver(getal) {
         }
     }, 1000);
 }
-
+// geef de vijanden een random positie
 function RandomPositieVijand() {
     var offsetleft;
     var offsettop;
@@ -253,6 +242,7 @@ function DetecteerCollisieUitgang() {
     var uitgang = $("#uitgang")
     if (parseInt(speler.css("top")) > parseInt(uitgang.css("margin-top")) && (parseInt(speler.css("top")) + parseInt(speler.css("height"))) < (parseInt(window.innerHeight) - parseInt(uitgang.css("margin-top")) + parseInt(uitgang.css("height"))) && parseInt(speler.css("left")) > parseInt(window.innerWidth) - 40) {
         document.getElementById("score").textContent = "score: " + score + 1;
+        document.getElementById("mijnGeluid").play();
         ResetSpeler();
     }
 }
