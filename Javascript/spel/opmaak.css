@@ -4,10 +4,10 @@ body {
 }
 
 .vijand {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background: red;
-    border-radius: 40px;
+    border-radius: 60px;
     position: relative;
 }
 
@@ -37,18 +37,56 @@ body {
 #uitgang {
     border: 3px solid green;
     height: 10vh;
-    width: 3vw;
+    width: 2vw;
     float: right;
-    margin-right: -14;
-    margin-top: calc(51vh - 50px);
+    margin-right: -28;
+    margin-top: calc(12vh - 50px);
 }
 
 #uitgang2 {
     border: 1px solid white;
-    height: 5vh;
+    height: 8vh;
     width: 1vw;
     float: right;
-    margin-top: calc(55vh - 50px);
+    margin-top: calc(13vh - 50px);
+    margin-right: -2px;
+}
+
+#bovenFotoArrow,
+#linksFotoArrow,
+#rechtsFotoArrow,
+#benedenFotoArrow {
+    width: 40px;
+    height: 40px;
+}
+
+#GaNaarBoven,
+#GaNaarLinks,
+#GaNaarRechts,
+#GaNaarBeneden {
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+    outline: none;
+}
+
+#GaNaarBoven {
+    margin-top: calc(34vh - 50px);
+}
+
+#GaNaarLinks {
+    margin-top: calc(38vh - 50px);
+}
+
+#GaNaarBeneden {
+    float: right;
+    margin-top: calc(0vh - 50px);
+}
+
+#GaNaarRechts {
+    float: right;
+    margin-top: calc(30vh - 50px);
+    margin-right: -24px;
 }
 
 #welkombox {
@@ -123,6 +161,9 @@ body {
     }
 }
 
+
+/* op een smal scherm */
+
 @media screen and (max-width: 600px) {
     body {
         overflow: hidden;
@@ -156,10 +197,78 @@ body {
         height: 25vh;
         margin-left: calc(20vw - 50px);
     }
+    @media screen and (orientation: portrait) {
+        .speler {
+            margin-left: calc(-103vw - 50px);
+        }
+        #tijd {
+            width: 30vw;
+            height: 3vh;
+            margin-top: calc(130vw - 50px);
+            margin-left: calc(-4vh - 50px);
+        }
+        #uitgang {
+            height: 10vh;
+            width: 8vw;
+            float: right;
+            margin-top: calc(45vh - 50px);
+            margin-right: -220px;
+        }
+        #uitgang2 {
+            height: 10vh;
+            width: 8vw;
+            float: right;
+            margin-top: calc(45vh - 50px);
+            margin-right: -220px;
+        }
+        #GaNaarBoven {
+            margin-top: calc(8vh - 50px);
+            margin-left: calc(-100vw - 50px);
+        }
+        #GaNaarLinks {
+            margin-left: calc(-100vw - 50px);
+            margin-top: calc (20vh - 50px);
+        }
+        #GaNaarBeneden {
+            margin-top: calc(0vh - 50px);
+        }
+        #GaNaarRechts {
+            margin-top: calc(30vh - 50px);
+            margin-right: 0px;
+        }
+        #welkombox {
+            width: 80vw;
+            height: 30vh;
+            margin-left: calc(-30vw - 50px);
+        }
+        #verlorenbox {
+            width: 80vw;
+            height: 30vh;
+            margin-left: calc(20vw - 50px);
+        }
+        @-webkit-keyframes beweegAnimation {
+            from {
+                top: 0px;
+            }
+            to {
+                top: 8vh;
+            }
+        }
+        @keyframes beweegAnimation {
+            from {
+                top: 0px;
+            }
+            to {
+                top: 8vh;
+            }
+        }
+    }
 }
 
-@media screen and (orientation: landscape) {
-    /* 
+
+/* een breed scherm */
+
+@media screen and (min-width: 600px) and (max-width: 1000px) {
     body {
         overflow: hidden;
         position: static;
@@ -174,40 +283,37 @@ body {
     }
     #tijd {
         width: 15vw;
-        height: 5vh;
-        margin-left: calc(45vw - 50px);
+        height: 6vh;
+        margin-left: calc(48vw - 50px);
     }
     #uitgang {
-        height: 20vh;
+        height: 18vh;
         width: 4vw;
         float: right;
-        margin-top: calc(47vh - 50px);
-        margin-right: -50px;
+        margin-top: calc(-20vh - 50px);
+        margin-left: calc(66vw - 50px);
     }
     #uitgang2 {
-        height: 8vh;
-        width: 2vw;
         float: right;
-        margin-top: calc(53vh - 50px);
-        margin-right: -50px;
+        margin-top: calc(21vh - 50px);
+        margin-left: calc(60vw - 50px);
     }
     #welkombox {
-        font-size: 16px;
-        width: 35vw;
-        height: 48vh;
-        margin-left: calc(20vw - 50px);
+        width: 45vw;
+        height: 57vh;
+        margin-left: calc(32vw - 50px);
     }
     #verlorenbox {
-        width: 40vw;
-        height: 58vh;
-        margin-left: calc(35vw - 50px);
+        width: 45vw;
+        height: 57vh;
+        margin-left: calc(32vw - 50px);
     }
     @-webkit-keyframes beweegAnimation {
         from {
             top: 0px;
         }
         to {
-            top: 8vh;
+            top: 14vh;
         }
     }
     @keyframes beweegAnimation {
@@ -215,62 +321,12 @@ body {
             top: 0px;
         }
         to {
-            top: 8vh;
+            top: 14vh;
         }
     }
-    */ 
-}
-
-@media screen and (orientation: portrait) {
-    /* 
-    .speler {
-        margin-left: calc(-103vw - 50px);
-    }
-    #tijd {
-        width: 30vw;
-        height: 3vh;
-        margin-top: calc(130vw - 50px);
-        margin-left: calc(-4vh - 50px);
-    }
-    #uitgang {
-        height: 10vh;
-        width: 8vw;
+    #GaNaarRechts {
         float: right;
-        margin-top: calc(45vh - 50px);
-        margin-right: -220px;
+        margin-top: calc(4vh - 50px);
+        margin-right: -6px;
     }
-    #uitgang2 {
-        height: 10vh;
-        width: 8vw;
-        float: right;
-        margin-top: calc(45vh - 50px);
-        margin-right: -220px;
-    }
-    #welkombox {
-        width: 80vw;
-        height: 30vh;
-        margin-left: calc(-30vw - 50px);
-    }
-    #verlorenbox {
-        width: 80vw;
-        height: 30vh;
-        margin-left: calc(20vw - 50px);
-    }
-    @-webkit-keyframes beweegAnimation {
-        from {
-            top: 0px;
-        }
-        to {
-            top: 10vh;
-        }
-    }
-    @keyframes beweegAnimation {
-        from {
-            top: 0px;
-        }
-        to {
-            top: 10vh;
-        }
-    }
-    */ 
 }

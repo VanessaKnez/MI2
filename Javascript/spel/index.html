@@ -2,10 +2,12 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <title>Find your way out</title>
-    <link rel="icon" href="gameconsole.jpg" type="image/gif" sizes="16x16">
+    <link rel="icon" href="fotos/gameconsole.jpg" type="image/gif" sizes="16x16">
     <link href="opmaak.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="hammer.min.js"></script>
     <script src="doc.js">
     </script>
 </head>
@@ -14,12 +16,16 @@
     <!-- DIV ID speler aanmaken -->
     <div class="speler" id="speler"></div>
     <!-- DIV ID om de score te plaatsen -->
-    <div id="score">score: </div>
+    <div id="score"></div>
     <div id="tijd"></div>
-    <button id="GoRechts" type="button">Rechts</button>
-    <!-- de blok dat je krijgt wanneer je het spel start -->
+    <button id="GaNaarBoven" type="button"><img src="fotos/Uparrow.jpg" id="bovenFotoArrow"></button>
+    <br>
+    <button id="GaNaarLinks" type="button"><img src="fotos/Leftarrow.jpg" id="linksFotoArrow"></button>
+    <button id="GaNaarBeneden" type="button"><img src="fotos/Downarrow.jpg" id="benedenFotoArrow"></button>
     <div id="uitgang2"></div>
     <div id="uitgang"></div>
+    <button id="GaNaarRechts" type="button"><img src="fotos/Rightarrow.jpg" id="rechtsFotoArrow"></button>
+    <!-- de blok dat je krijgt wanneer je het spel start -->
     <div id="welkombox">
         <p id="welkom">WELCOME</p>
         <p>You are the white dot. Try to not be eaten by the red dots / your enemy and get to the exit (green square).</p>

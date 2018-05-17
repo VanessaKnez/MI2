@@ -9,6 +9,30 @@ var windowheight, windowwidth, speler, score = 0
     , tijdOver, timer;
 /* jshint esnext: true */
 $(document).ready(function () {
+    $("#GaNaarRechts").click(function () {
+        if (!DetecteerCollisie("rechts")) $(".speler").finish().animate({
+            left: "+=10"
+        })
+        DetecteerCollisieUitgang();
+    })
+    $("#GaNaarLinks").click(function () {
+        if (!DetecteerCollisie("links")) $(".speler").finish().animate({
+            left: "-=10"
+        });
+    })
+    $("#GaNaarBoven").click(function () {
+        if (!DetecteerCollisie("boven")) $(".speler").finish().animate({
+            top: "-=10"
+        })
+        DetecteerCollisieUitgang();
+    })
+    $("#GaNaarBeneden").click(function () {
+            if (!DetecteerCollisie("beneden")) $(".speler").finish().animate({
+                top: "+=10"
+            })
+            DetecteerCollisieUitgang();
+        })
+        // voor deze stuk heb ik https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device-in-jquery gebruikt
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         // naar landscape gaan
         if (window.innerHeight > window.innerWidth) {
@@ -25,15 +49,9 @@ $(document).ready(function () {
     }
     // welkom box met knop functie
     // --- EPILEPSIE? ---
-    $("#GoRechts").click(function () {
+    function BalNaarRechts() {
         alert("test");
-        if (!DetecteerCollisie("rechts")) {
-            alert("test");
-            $(".speler").finish().animate({
-                left: "+=10"
-            })
-        }
-    });
+    }
     /**
      * Als er op de easy knop gedrukt wordt,
      * Dan is de moeilijkheidsgraad lager, op 50
@@ -44,12 +62,13 @@ $(document).ready(function () {
         aantalBollen = 15;
         TekenVijand(aantalBollen);
         setInterval(RandomPositieVijand, 10000);
-        setInterval(VeranderVijandVanKleur, 60000);
+        setInterval(VeranderVijandVanKleur, 30000);
         setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
         tijdOver(10);
+        DetecteerCollisieUitgang();
     });
     /**
      * Als er op de normaal knop gedrukt wordt,
@@ -61,7 +80,7 @@ $(document).ready(function () {
         aantalBollen = 25;
         TekenVijand(aantalBollen);
         setInterval(RandomPositieVijand, 7000);
-        setInterval(VeranderVijandVanKleur, 60000);
+        setInterval(VeranderVijandVanKleur, 30000);
         setInterval(function () {
             score += 5;
             MijnScore();
@@ -79,12 +98,13 @@ $(document).ready(function () {
         aantalBollen = 40;
         TekenVijand(aantalBollen);
         setInterval(RandomPositieVijand, 3000);
-        setInterval(VeranderVijandVanKleur, 60000);
+        setInterval(VeranderVijandVanKleur, 30000);
         setInterval(function () {
             score += 5;
             MijnScore();
         }, 1000);
         tijdOver(3);
+        DetecteerCollisieUitgang();
     });
     // verloren box met knop functie
     // voorlopig enkel de box laten verdwijnen
@@ -92,8 +112,20 @@ $(document).ready(function () {
     //     $("#verlorenbox").hide();
     // });
     // $("#verlorenbox").hide();
+    speler = $(".speler");
 });
-
+/*
+var hammertime = new Hammer(document.getElementById("speler"), tap);
+hammertime.on('pan', function (ev) {
+    console.log(ev);
+});
+hammertime.get('pan').set({
+    direction: Hammer.DIRECTION_ALL
+});
+hammertime.get('swipe').set({
+    direction: Hammer.DIRECTION_VERTICAL
+});
+*/
 function tijdOver(getal) {
     tijdOver = getal;
     setInterval(function () {
@@ -118,7 +150,15 @@ function RandomPositieVijand() {
         })
     }
 }
-// met een lus ervoor zorgen dat de rode bolletjes "aantalBollen" keer getoond worden
+// hier gaan we de rode bolletjes tekenen
+var Teken = (index) => {
+        var offsetleft = GetRandom(window.innerWidth);
+        var offsettop = GetRandom(window.innerHeight);
+        var id = "vijand" + index;
+        var nieuwevijand = "<div class='vijand' id='" + id + "' style='left: " + offsetleft + "px; top: " + offsettop + "px'></div>";
+        document.body.innerHTML += nieuwevijand;
+    }
+    // met een lus ervoor zorgen dat de rode bolletjes "aantalBollen" keer getoond worden
 function TekenVijand(getal) {
     var i = 0;
     for (i; i < getal; i++) {
@@ -126,7 +166,6 @@ function TekenVijand(getal) {
     }
     windowheight = window.innerHeight;
     windowwidth = window.innerWidth;
-    speler = $(".speler");
     $("#welkombox").hide();
 }
 // de vijanden van kleur laten veranderen, de kleuren die in de array staan
@@ -136,20 +175,13 @@ function VeranderVijandVanKleur() {
         this.style.background = kleuren[random];
     })
 }
-// hier gaan we de rode bolletjes tekenen
-var Teken = (index) => {
-        var offsetleft = GetRandom(window.innerWidth);
-        var offsettop = GetRandom(window.innerHeight);
-        var id = "vijand" + index;
-        var nieuwevijand = "<div class='vijand' id='" + id + "' style='left: " + offsetleft + "px; top: " + offsettop + "px'></div>";
-        document.body.innerHTML += nieuwevijand;
-    }
-    //  hier zetten we een random positie
+//  hier zetten we een random positie
 var GetRandom = (max) => {
         // return Math.floor(Math.random() * max) - 25;
         return Math.floor(Math.random() * max);
     }
     // de speler laten bewegen met de pijltjes toetsen
+    // ik de basis van hier genomen https://www.codingforums.com/javascript-programming/121873-ev-keycode-%7C%7C-ev.html
 $(document).keydown(function (e) {
     speler = $("#speler")
     spelerTop = parseInt(speler.css("top"));
@@ -220,8 +252,22 @@ function DetecteerCollisie(richting) {
 function DetecteerCollisieUitgang() {
     var uitgang = $("#uitgang")
     if (parseInt(speler.css("top")) > parseInt(uitgang.css("margin-top")) && (parseInt(speler.css("top")) + parseInt(speler.css("height"))) < (parseInt(window.innerHeight) - parseInt(uitgang.css("margin-top")) + parseInt(uitgang.css("height"))) && parseInt(speler.css("left")) > parseInt(window.innerWidth) - 40) {
+        document.getElementById("score").textContent = "score: " + score + 1;
+        ResetSpeler();
+    }
+}
+// als de speler de vijanden raakt
+/*function DetecteerCollisieVijand() {
+    var vijand = $("#vijand")
+    if () {
         alert("test");
     }
+}*/
+function ResetSpeler() {
+    $("#speler").css({
+        "top": "50vh"
+        , "left": "0"
+    })
 }
 
 function DetecteerCollisieVanVijand(richting, obj) {
