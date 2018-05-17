@@ -9,6 +9,20 @@ var windowheight, windowwidth, speler, score = 0
     , tijdOver, timer;
 /* jshint esnext: true */
 $(document).ready(function () {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // naar landscape gaan
+        if (window.innerHeight > window.innerWidth) {
+            $('body').css({
+                "-webkit-transform": "rotate(90deg)"
+            });
+        }
+        // in landscape blijven
+        if (window.innerWidth > window.innerHeight) {
+            $('body').css({
+                "-webkit-transform": "rotate(0deg)"
+            });
+        }
+    }
     // welkom box met knop functie
     // --- EPILEPSIE? ---
     $("#GoRechts").click(function () {
