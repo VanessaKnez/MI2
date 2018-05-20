@@ -9,23 +9,29 @@ var windowheight, windowwidth, speler, score = 0
     , tijdOver, timer, verlorenGeluid;
 /* jshint esnext: true */
 $(document).ready(function () {
+    // de verloren box bericht verstoppen
+    $("#verlorenbox").hide();
+    // de code om met de knop naar rechts te gaan
     $("#GaNaarRechts").click(function () {
-        if (!DetecteerCollisie("rechts")) $(".speler").finish().animate({
-            left: "+=10"
+            if (!DetecteerCollisie("rechts")) $(".speler").finish().animate({
+                left: "+=10"
+            })
+            DetecteerCollisieUitgang();
         })
-        DetecteerCollisieUitgang();
-    })
+        // de code om met de knop naar links te gaan
     $("#GaNaarLinks").click(function () {
-        if (!DetecteerCollisie("links")) $(".speler").finish().animate({
-            left: "-=10"
-        });
-    })
-    $("#GaNaarBoven").click(function () {
-        if (!DetecteerCollisie("boven")) $(".speler").finish().animate({
-            top: "-=10"
+            if (!DetecteerCollisie("links")) $(".speler").finish().animate({
+                left: "-=10"
+            });
         })
-        DetecteerCollisieUitgang();
-    })
+        // de code om met de knop naar boven te gaan
+    $("#GaNaarBoven").click(function () {
+            if (!DetecteerCollisie("boven")) $(".speler").finish().animate({
+                top: "-=10"
+            })
+            DetecteerCollisieUitgang();
+        })
+        // de code om met de knop naar beneden te gaan
     $("#GaNaarBeneden").click(function () {
             if (!DetecteerCollisie("beneden")) $(".speler").finish().animate({
                 top: "+=10"
@@ -46,11 +52,6 @@ $(document).ready(function () {
                 "-webkit-transform": "rotate(0deg)"
             });
         }
-    }
-    // welkom box met knop functie
-    // --- EPILEPSIE? ---
-    function BalNaarRechts() {
-        alert("test");
     }
     /**
      * Als er op de easy knop gedrukt wordt,
@@ -106,12 +107,51 @@ $(document).ready(function () {
         tijdOver(3);
         DetecteerCollisieUitgang();
     });
-    // verloren box met knop functie
-    // voorlopig enkel de box laten verdwijnen
-    // $("#SpeelOpnieuw").click(function () {
-    //     $("#verlorenbox").hide();
-    // });
-    // $("#verlorenbox").hide();
+    // gemakkelijke level opnieuw spelen
+    $("#StartEasyOpnieuw").click(function () {
+        moeilijkheidsGraad = 200;
+        aantalBollen = 40;
+        TekenVijand(aantalBollen);
+        setInterval(RandomPositieVijand, 3000);
+        setInterval(VeranderVijandVanKleur, 30000);
+        setInterval(function () {
+            score += 5;
+            MijnScore();
+        }, 1000);
+        tijdOver(3);
+        DetecteerCollisieUitgang();
+        $("#verlorenbox").hide();
+    });
+    // normale level opnieuw spelen
+    $("#StartNormaalOpnieuw").click(function () {
+        moeilijkheidsGraad = 200;
+        aantalBollen = 40;
+        TekenVijand(aantalBollen);
+        setInterval(RandomPositieVijand, 3000);
+        setInterval(VeranderVijandVanKleur, 30000);
+        setInterval(function () {
+            score += 5;
+            MijnScore();
+        }, 1000);
+        tijdOver(3);
+        DetecteerCollisieUitgang();
+        $("#verlorenbox").hide();
+    });
+    // harde level opnieuw spelen
+    $("#StartHardOpnieuw").click(function () {
+        moeilijkheidsGraad = 200;
+        aantalBollen = 40;
+        TekenVijand(aantalBollen);
+        setInterval(RandomPositieVijand, 3000);
+        setInterval(VeranderVijandVanKleur, 30000);
+        setInterval(function () {
+            score += 5;
+            MijnScore();
+        }, 1000);
+        tijdOver(3);
+        DetecteerCollisieUitgang();
+        $("#verlorenbox").hide();
+    });
     speler = $(".speler");
 });
 // de teller van het spel
@@ -166,7 +206,6 @@ function VeranderVijandVanKleur() {
 }
 //  hier zetten we een random positie
 var GetRandom = (max) => {
-        // return Math.floor(Math.random() * max) - 25;
         return Math.floor(Math.random() * max);
     }
     // de speler laten bewegen met de pijltjes toetsen
@@ -304,13 +343,6 @@ function DetecteerCollisieMetVijand() {
 }
 // wanneer het spel voorbij is
 function gameOver() {
+    document.getElementById("#ditWasJeScore").textContent = score;
     $("#verlorenbox").show();
 }
-$("#speler").on("touchmove", function (e) {
-    var raakAan = e.originalEvent.touches[0];
-    var positieX = touch.clientX;
-    var positieY = touch.clientY;
-    $(this).css({
-        "-webkit-transform": "translate3d(" + positieX + "px," + positieY + "px,0)"
-    })
-});

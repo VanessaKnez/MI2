@@ -72,25 +72,21 @@ body {
 
 #GaNaarBoven {
     margin-top: calc(34vh - 50px);
-    overflow: hidden;
 }
 
 #GaNaarLinks {
     margin-top: calc(38vh - 50px);
-    overflow: hidden;
 }
 
 #GaNaarBeneden {
     float: right;
     margin-top: calc(0vh - 50px);
-    overflow: hidden;
 }
 
 #GaNaarRechts {
     float: right;
     margin-top: calc(30vh - 50px);
     margin-right: -24px;
-    overflow: hidden;
 }
 
 #welkombox {
@@ -170,7 +166,6 @@ body {
 
 @media screen and (max-width: 600px) {
     body {
-        overflow: hidden;
         position: static;
     }
     .vijand {
@@ -180,23 +175,54 @@ body {
     .speler {
         width: 15px;
         height: 15px;
+        top: 480px;
+        left: -10px;
     }
     #tijd {
         width: 30vw;
         margin-left: calc(45vw - 50px);
     }
+    #uitgang2 {
+        height: 8vh;
+        width: 8vw;
+        float: right;
+        margin-top: calc(41vh - 50px);
+        margin-right: -220px;
+    }
     #uitgang {
         height: 10vh;
         width: 8vw;
         float: right;
-        margin-top: calc(51vh - 50px);
+        margin-top: calc(40vh - 50px);
+        margin-right: calc(-18vh - 50px);
     }
-    
+    #GaNaarBoven {
+        margin-top: calc(8vh - 50px);
+        margin-left: calc(-100vw - 50px);
+    }
+    #GaNaarLinks {
+        margin-left: calc(-100vw - 50px);
+        margin-top: calc (20vh - 50px);
+    }
+    #GaNaarBeneden {
+        margin-top: calc(0vh - 50px);
+        margin-left: calc(-20vw - 50px);
+    }
+    #GaNaarRechts {
+        margin-top: calc(30vh - 50px);
+        margin-right: 0px;
+    }
+    #welkombox {
+        width: 80vw;
+        height: 30vh;
+        margin-left: calc(15vw - 50px);
+    }
     #verlorenbox {
-        width: 85vw;
+        width: 80vw;
         height: 25vh;
-        margin-left: calc(20vw - 50px);
+        margin-left: calc(15vw - 50px);
     }
+    /*
     @media screen and (orientation: portrait) {
         .speler {
             margin-left: calc(-103vw - 50px);
@@ -213,38 +239,6 @@ body {
             float: right;
             margin-top: calc(45vh - 50px);
             margin-right: -220px;
-        }
-        #uitgang2 {
-            height: 10vh;
-            width: 8vw;
-            float: right;
-            margin-top: calc(45vh - 50px);
-            margin-right: -220px;
-        }
-        #GaNaarBoven {
-            margin-top: calc(8vh - 50px);
-            margin-left: calc(-100vw - 50px);
-            overflow: visible;
-        }
-        #GaNaarLinks {
-            margin-left: calc(-100vw - 50px);
-            margin-top: calc (20vh - 50px);
-            overflow: visible;
-        }
-        #GaNaarBeneden {
-            margin-top: calc(0vh - 50px);
-            margin-left: calc(-20vw - 50px);
-            overflow: visible;
-        }
-        #GaNaarRechts {
-            margin-top: calc(30vh - 50px);
-            margin-right: 0px;
-            overflow: visible;
-        }
-        #welkombox {
-            width: 80vw;
-            height: 30vh;
-            margin-left: calc(-50vw - 50px);
         }
         #verlorenbox {
             width: 80vw;
@@ -267,30 +261,35 @@ body {
                 top: 8vh;
             }
         }
-    }
+        */
 }
 
 
-/* een breed scherm */
+}
 
+/* een breed scherm */
 @media screen and (min-width: 600px) and (max-width: 1000px) {
     body {
         overflow: hidden;
         position: static;
     }
+    
     .vijand {
         width: 40px;
         height: 40px;
     }
+    
     .speler {
         width: 15px;
         height: 15px;
     }
+    
     #tijd {
         width: 15vw;
         height: 6vh;
         margin-left: calc(48vw - 50px);
     }
+    
     #uitgang {
         height: 18vh;
         width: 4vw;
@@ -298,21 +297,25 @@ body {
         margin-top: calc(-20vh - 50px);
         margin-left: calc(66vw - 50px);
     }
+    
     #uitgang2 {
         float: right;
         margin-top: calc(21vh - 50px);
         margin-left: calc(60vw - 50px);
     }
+    
     #welkombox {
         width: 45vw;
         height: 57vh;
         margin-left: calc(32vw - 50px);
     }
+    
     #verlorenbox {
         width: 45vw;
         height: 57vh;
         margin-left: calc(32vw - 50px);
     }
+    
     @-webkit-keyframes beweegAnimation {
         from {
             top: 0px;
@@ -321,6 +324,7 @@ body {
             top: 14vh;
         }
     }
+    
     @keyframes beweegAnimation {
         from {
             top: 0px;
@@ -329,11 +333,13 @@ body {
             top: 14vh;
         }
     }
+    
     #GaNaarBoven,
     #GaNaarLinks,
     #GaNaarBeneden {
         overflow: visible;
     }
+    
     #GaNaarRechts {
         float: right;
         margin-top: calc(4vh - 50px);
